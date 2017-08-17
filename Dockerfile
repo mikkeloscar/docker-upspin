@@ -7,6 +7,8 @@ RUN apk add --update git && go get upspin.io/cmd/...
 FROM alpine
 MAINTAINER Mikkel Oscar Lyderik Larsen <m@moscar.net>
 
-COPY --from=builder /go/bin/* /usr/bin/
+RUN apk add --update ca-certificates
 
-ENTRYPOINT ["/usr/bin/upspin"]
+COPY --from=builder /go/bin/upspinserver /usr/bin/
+
+ENTRYPOINT ["/usr/bin/upspinserver"]
